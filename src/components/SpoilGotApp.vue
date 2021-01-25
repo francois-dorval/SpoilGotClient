@@ -7,7 +7,6 @@
 
         <div class="container custombody" id="app">
             <div class="row column text-center">
-                <!--            <input type="range" min="1" max="8" value="1" v-model="season" class="slider" style="width:80%" id="myRange">-->
                 <select v-model="mutableSeason" @change="updateSeason"
                 >
                     <option value="1">Saison 1</option>
@@ -25,18 +24,14 @@
 
             </div>
 
-            <div class="columns medium-4" v-for="(result) in getResults()" v-bind:key="result.id">
+            <div class="columns medium-4" v-for="(result) in mutableResult" v-bind:key="result.id">
                 <div class="card">
-
-
                     <div class="card-divider">
                         <Character :perso="result"/>
                     </div>
 
                 </div>
             </div>
-
-
         </div>
     </div>
 </template>
@@ -59,27 +54,18 @@
                 default: 1
             }
         },
-
-
         data: function () {
             return {
                 mutableResult: this.results,
                 mutableSeason: this.season
-
             }
         },
         methods: {
-            setResults(res){
-              this.mutableResult=res;
-            },
-            getResults(){
-                return(this.mutableResult);
-            },
+
             updateSeason: function () {
-                //this.season = value;
-                //alert(JSON.stringify(this.season));
+
                 axios.get(url + "?season=" + this.mutableSeason).then(response => {
-                    this.setResults(response.data);
+                    this.mutableResult = response.data;
                 }).catch(error => {
                     alert(error.response.data.message)
                 });
@@ -108,14 +94,10 @@
         color: #42b983;
     }
 
-    .customline {
-        text-decoration: line-through;
-    }
 
     .custombody{
         background : url("stark.jpg");
         background-size: initial;
-
 
     }
 </style>

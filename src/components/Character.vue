@@ -1,13 +1,14 @@
 <template>
     <div class="card">
         <div class="card-divider">
-            <p><b v-bind:class="{ customline: perso.deadInSeason}">{{ perso.name }}</b> {{ perso.causeOfDeath }}
+            <p><b v-bind:class="{ customline: deadInSeason}">{{ perso.name }}</b> {{ perso.causeOfDeath }}
             </p>
         </div>
         <!--               <div class="card-section">-->
         <!--                  <p>{{ result.causeOfDeath }}</p>-->
         <!--               </div>-->
-    </div></template>
+    </div>
+</template>
 
 <script>
 
@@ -25,11 +26,16 @@
 
         data: function () {
             return {
-                mutablePerso: this.perso
+                mutablePerso: this.perso,
+                deadInSeason:this.perso.deadInSeason
             }
         }
 
     }
 </script>
 
-
+<style scoped>
+    .customline {
+        text-decoration: line-through;
+    }
+</style>
