@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card-divider">
-            <p><b v-bind:class="{ customline: result.deadInSeason}">{{ result.name }}</b> {{ result.causeOfDeath }}
+            <p><b v-bind:class="{ customline: perso.deadInSeason}">{{ perso.name }}</b> {{ perso.causeOfDeath }}
             </p>
         </div>
         <!--               <div class="card-section">-->
@@ -15,7 +15,7 @@
     export default {
         name: 'Character',
         props: {
-            perso: [],
+            perso: {},
             // season: {
             //     type: Number,
             //     default: 1

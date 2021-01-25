@@ -5,10 +5,10 @@
             <h4 class="text-left">Spoil Game of Thrones</h4>
         </div>
 
-        <div class="container" id="app">
+        <div class="container custombody" id="app">
             <div class="row column text-center">
                 <!--            <input type="range" min="1" max="8" value="1" v-model="season" class="slider" style="width:80%" id="myRange">-->
-                <select v-model="season" @change="updateSeason"
+                <select v-model="mutableSeason" @change="updateSeason"
                 >
                     <option value="1">Saison 1</option>
                     <option value="2">Saison 2</option>
@@ -30,12 +30,9 @@
 
 
                     <div class="card-divider">
-                        <p><b v-bind:class="{ customline: result.deadInSeason}">{{ result.name }}</b> {{
-                            result.causeOfDeath }}</p>
+                        <Character :perso="result"/>
                     </div>
-                    <!--               <div class="card-section">-->
-                    <!--                  <p>{{ result.causeOfDeath }}</p>-->
-                    <!--               </div>-->
+
                 </div>
             </div>
 
@@ -46,23 +43,29 @@
 
 <script>
     import axios from 'axios'
+    import Character from "./Character";
 
     const url = "http://localhost:8888/characters";
 
     export default {
         name: 'SpoilGotApp',
+        components: {
+             Character
+        },
         props: {
             results: [],
-            // season: {
-            //     type: Number,
-            //     default: 1
-            // }
+             season: {
+                type: Number,
+                default: 1
+            }
         },
 
 
         data: function () {
             return {
-                mutableResult: this.results
+                mutableResult: this.results,
+                mutableSeason: this.season
+
             }
         },
         methods: {
@@ -75,7 +78,7 @@
             updateSeason: function () {
                 //this.season = value;
                 //alert(JSON.stringify(this.season));
-                axios.get(url + "?season=" + this.season).then(response => {
+                axios.get(url + "?season=" + this.mutableSeason).then(response => {
                     this.setResults(response.data);
                 }).catch(error => {
                     alert(error.response.data.message)
@@ -103,5 +106,16 @@
 
     a {
         color: #42b983;
+    }
+
+    .customline {
+        text-decoration: line-through;
+    }
+
+    .custombody{
+        background : url("stark.jpg");
+        background-size: initial;
+
+
     }
 </style>

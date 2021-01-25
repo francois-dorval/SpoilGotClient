@@ -8,10 +8,10 @@
 <script>
 import SpoilGotApp from './components/SpoilGotApp.vue'
 
+
 export default {
   name: 'App',
   components: {
-    // eslint-disable-next-line vue/no-unused-components
     SpoilGotApp
   }
 }
